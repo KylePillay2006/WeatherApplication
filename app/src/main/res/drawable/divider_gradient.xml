@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    divider_gradient.xml
+    Horizontal divider that fades from transparent → ice-blue → transparent.
+    Creates a soft glowing separator between the hero section and detail tiles.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:type="linear"
+        android:angle="0"
+        android:startColor="#00A2D6F9"
+        android:centerColor="#88A2D6F9"
+        android:endColor="#00A2D6F9" />
+    <size android:height="1dp" />
+</shape>

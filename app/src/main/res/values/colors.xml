@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- ADD THIS -->
+    <color name="colorAccent">#FF4081</color>
+    <color name="ice_blue">#a2d6f9</color>
+</resources>

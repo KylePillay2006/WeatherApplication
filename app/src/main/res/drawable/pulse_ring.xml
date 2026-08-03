@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    pulse_ring.xml
+    Outer ring of the live indicator dot.
+    Animate scale + alpha in code (ObjectAnimator) for the pulse effect.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <stroke
+        android:width="1.5dp"
+        android:color="#661E96FC" />
+
+    <solid android:color="#00000000" />
+
+    <size
+        android:width="18dp"
+        android:height="18dp" />
+
+</shape>

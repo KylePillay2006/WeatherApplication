@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    glass_tile_accent.xml
+    Slightly deeper glass card for the second row of detail tiles.
+    Electric blue top accent stripe achieved via layered drawable.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Base glass fill -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#22FFFFFF" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+
+    <!-- Top accent bar — electric blue glow line -->
+    <item
+        android:bottom="14dp"
+        android:left="20dp"
+        android:right="20dp"
+        android:top="0dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#661E96FC" />
+            <corners
+                android:topLeftRadius="16dp"
+                android:topRightRadius="16dp"
+                android:bottomLeftRadius="0dp"
+                android:bottomRightRadius="0dp" />
+            <size android:height="3dp" />
+        </shape>
+    </item>
+
+    <!-- Border -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" />
+            <stroke
+                android:width="1dp"
+                android:color="#441E96FC" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+
+</layer-list>

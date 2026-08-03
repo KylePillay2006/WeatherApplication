@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    WEATHER APP - MODERN REDESIGN
+    Color Palette:
+      Deep Navy   #072ac8
+      Electric    #1e96fc
+      Ice Blue    #a2d6f9
+      Neon Yellow #fcf300
+      Amber       #ffc600
+
+    Design System:
+      - Glassmorphism cards with semi-transparent overlays
+      - Animated gradient background (deep navy → electric blue)
+      - Accent: neon yellow for key data
+      - Typography scale: 96sp hero temp, 22sp section, 14sp label
+      - Floating detail tiles with frosted-glass effect
+      - Pulsing live indicator animation
+      - Custom divider lines in ice-blue
+-->
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_bg"
+    tools:context=".MainActivity">
+
+    <!-- SCROLLABLE CONTENT -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="56dp"
+            android:paddingBottom="40dp"
+            android:paddingHorizontal="24dp">
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- SECTION 1 — LOCATION HEADER             -->
+            <!-- ═══════════════════════════════════════ -->
+            <LinearLayout
+                android:id="@+id/headerSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <!-- Location pin icon placeholder -->
+                <ImageView
+                    android:src="@drawable/ic_location_pin"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="6dp"
+                    android:alpha="0.85"
+                    app:tint="@color/ice_blue" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/address"
+                        android:text="Durban"
+                        android:textSize="22sp"
+                        android:letterSpacing="0.04"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#FFFFFF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/updated_at"
+                        android:text="Updated at: --"
+                        android:textSize="12sp"
+                        android:letterSpacing="0.02"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#A2D6F9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <!-- Live Pulse Indicator -->
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <!-- Outer pulse ring (animated in code) -->
+                    <View
+                        android:id="@+id/pulseDot"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/pulse_ring"
+                        android:layout_margin="4dp" />
+
+                    <!-- Core dot -->
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/live_dot"
+                        android:layout_margin="4dp" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- SECTION 2 — HERO TEMPERATURE BLOCK      -->
+            <!-- ═══════════════════════════════════════ -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="8dp">
+
+                <!-- Condition Label with pill background -->
+                <TextView
+                    android:id="@+id/status"
+                    android:text="Clear Sky"
+                    android:textSize="14sp"
+                    android:letterSpacing="0.12"
+                    android:textAllCaps="true"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#072AC8"
+                    android:background="@drawable/pill_yellow"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp" />
+
+                <!-- Hero Temperature -->
+                <TextView
+                    android:id="@+id/temp"
+                    android:text="24°"
+                    android:textSize="96sp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#FFFFFF"
+                    android:letterSpacing="-0.03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-8dp" />
+
+                <!-- Celsius label beside temp -->
+                <TextView
+                    android:text="CELSIUS"
+                    android:textSize="11sp"
+                    android:letterSpacing="0.16"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#A2D6F9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-12dp" />
+
+                <!-- Min / Max row -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/glass_pill"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="10dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal">
+
+                        <TextView
+                            android:text="MIN"
+                            android:textSize="10sp"
+                            android:letterSpacing="0.14"
+                            android:fontFamily="sans-serif"
+                            android:textColor="#A2D6F9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/temp_min"
+                            android:text="20°C"
+                            android:textSize="20sp"
+                            android:fontFamily="sans-serif"
+                            android:textColor="#FFFFFF"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="32dp"
+                        android:background="#33A2D6F9"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_gravity="center_vertical" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal">
+
+                        <TextView
+                            android:text="MAX"
+                            android:textSize="10sp"
+                            android:letterSpacing="0.14"
+                            android:fontFamily="sans-serif"
+                            android:textColor="#FFC600"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/temp_max"
+                            android:text="28°C"
+                            android:textSize="20sp"
+                            android:fontFamily="sans-serif"
+                            android:textColor="#FCF300"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- SECTION 3 — DIVIDER LINE                -->
+            <!-- ═══════════════════════════════════════ -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/divider_gradient"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="24dp" />
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- SECTION 4 — DETAIL TILES ROW 1          -->
+            <!-- Sunrise · Sunset · Wind                  -->
+            <!-- ═══════════════════════════════════════ -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:layout_marginBottom="12dp">
+
+                <!-- Sunrise Tile -->
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/glass_tile"
+                    android:padding="14dp"
+                    android:layout_marginEnd="6dp">
+
+                    <ImageView
+                        android:src="@drawable/ic_sunrise"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        app:tint="#FCF300"
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:text="SUNRISE"
+                        android:textSize="9sp"
+                        android:letterSpacing="0.14"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#A2D6F9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/sunrise"
+                        android:text="5:30 AM"
+                        android:textSize="16sp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#FFFFFF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp" />
+
+                </LinearLayout>
+
+                <!-- Sunset Tile -->
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/glass_tile"
+                    android:padding="14dp"
+                    android:layout_marginHorizontal="3dp">
+
+                    <ImageView
+                        android:src="@drawable/ic_sunset"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        app:tint="#FFC600"
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:text="SUNSET"
+                        android:textSize="9sp"
+                        android:letterSpacing="0.14"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#A2D6F9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/sunset"
+                        android:text="5:30 PM"
+                        android:textSize="16sp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#FFFFFF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp" />
+
+                </LinearLayout>
+
+                <!-- Wind Tile -->
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/glass_tile"
+                    android:padding="14dp"
+                    android:layout_marginStart="6dp">
+
+                    <ImageView
+                        android:src="@drawable/ic_wind"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        app:tint="#A2D6F9"
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:text="WIND"
+                        android:textSize="9sp"
+                        android:letterSpacing="0.14"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#A2D6F9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/wind"
+                        android:text="10 km/h"
+                        android:textSize="16sp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#FFFFFF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- ═══════════════════════════════════════ -->
+            <!-- SECTION 5 — DETAIL TILES ROW 2          -->
+            <!-- Pressure · Humidity · Credit             -->
+            <!-- ═══════════════════════════════════════ -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <!-- Pressure Tile -->
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/glass_tile_accent"
+                    android:padding="14dp"
+                    android:layout_marginEnd="6dp">
+
+                    <ImageView
+                        android:src="@drawable/ic_pressure"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        app:tint="#1E96FC"
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:text="PRESSURE"
+                        android:textSize="9sp"
+                        android:letterSpacing="0.14"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#A2D6F9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/pressure"
+                        android:text="1012 hPa"
+                        android:textSize="15sp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#FFFFFF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp" />
+
+                </LinearLayout>
+
+                <!-- Humidity Tile -->
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/glass_tile_accent"
+                    android:padding="14dp"
+                    android:layout_marginHorizontal="3dp">
+
+                    <ImageView
+                        android:src="@drawable/ic_humidity"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        app:tint="#1E96FC"
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:text="HUMIDITY"
+                        android:textSize="9sp"
+                        android:letterSpacing="0.14"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#A2D6F9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/humidity"
+                        android:text="60%"
+                        android:textSize="16sp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#FFFFFF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp" />
+
+                </LinearLayout>
+
+                <!-- Credit Tile -->
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/glass_tile_accent"
+                    android:padding="14dp"
+                    android:layout_marginStart="6dp">
+
+                    <ImageView
+                        android:src="@drawable/ic_info"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        app:tint="#A2D6F9"
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:text="MADE BY"
+                        android:textSize="9sp"
+                        android:letterSpacing="0.14"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#A2D6F9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/info"
+                        android:text="Kyle"
+                        android:textSize="16sp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#FCF300"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
