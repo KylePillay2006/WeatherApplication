@@ -1,0 +1,60 @@
+1. 
+
+CREATE TABLE Funding (
+    funding_id      INT             NOT NULL,
+    funder          VARCHAR(100)    NOT NULL,
+    funding_amount  DECIMAL(12, 2)  NOT NULL,
+    CONSTRAINT PK_Funding PRIMARY KEY (funding_id)
+);
+
+2.
+
+CREATE SEQUENCE seq_funding_id START WITH 1 INCREMENT BY 1;
+
+CREATE TABLE Funding (
+    funding_id      INT             DEFAULT seq_funding_id.NEXTVAL NOT NULL,
+    funder          VARCHAR(100)    NOT NULL,
+    funding_amount  DECIMAL(12, 2)  NOT NULL,
+    CONSTRAINT PK_Funding PRIMARY KEY (funding_id)
+);
+
+3. 
+
+Example 1
+
+INSERT INTO Funding (funder, funding_amount)
+VALUES ('National Lotteries Commission', 250000.00);
+
+Example 2
+
+INSERT INTO Funding (funder, funding_amount)
+VALUES ('Shoprite Foundation', 75000.50);
+
+Expected Output
+
+funding_id	funder				funding_amount
+1		National Lotteries Commission	250000.00
+2		Shoprite Foundation		75000.50
+
+4. 
+
+-- Justification: The database creates the funding_id automatically on every insert,
+-- so no two records can ever share the same ID, even if two people insert at once.
+-- No foreign keys are used because the table has no referential integrity, but the
+-- PRIMARY KEY still prevents duplicates and NULLs. INT keeps IDs small and fast, and
+-- DECIMAL(12,2) stores money exactly without rounding errors.
+
+2. OTHER OPTION!!!
+
+CREATE SEQUENCE seq_funding_id
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+    NOCYCLE;
+
+CREATE TABLE Funding (
+    funding_id      NUMBER(10)      DEFAULT seq_funding_id.NEXTVAL NOT NULL,
+    funder          VARCHAR2(100)   NOT NULL,
+    funding_amount  NUMBER(12, 2)   NOT NULL,
+    CONSTRAINT PK_Funding PRIMARY KEY (funding_id)
+);
