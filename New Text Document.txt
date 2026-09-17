@@ -1,3 +1,5 @@
+START WITH NUMBER 2 FIRST!!!
+
 1. 
 
 CREATE TABLE Funding (
@@ -32,9 +34,9 @@ VALUES ('Shoprite Foundation', 75000.50);
 
 Expected Output
 
-funding_id	funder				funding_amount
-1		National Lotteries Commission	250000.00
-2		Shoprite Foundation		75000.50
+funding_id	 funder				             funding_amount
+1		     National Lotteries Commission	 250000.00
+2		     Shoprite Foundation		      75000.50
 
 4. 
 
@@ -44,7 +46,7 @@ funding_id	funder				funding_amount
 -- PRIMARY KEY still prevents duplicates and NULLs. INT keeps IDs small and fast, and
 -- DECIMAL(12,2) stores money exactly without rounding errors.
 
-2. OTHER OPTION!!!
+2. OTHER OPTION IF (2) FAILS!!!
 
 CREATE SEQUENCE seq_funding_id
     START WITH 1
